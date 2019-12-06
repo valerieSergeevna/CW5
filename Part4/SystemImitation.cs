@@ -162,7 +162,7 @@ namespace Part4
                         }
                     }
                     else
-                    {C:\Users\Lera\source\repos\CW5\Part4\Form1.cs
+                    {
                         queueLength++;
                         queue[queueLength - 1].Type = CurType;
                         queue[queueLength - 1].ID++;
