@@ -9,10 +9,10 @@ namespace Part4
     class Request
     {
         SolutionType type = new SolutionType();
-        bool acceptance;
+       // public bool acceptance = false;
         double cost = 0;
-        public double timeInQueue;
-        public double timeProcess;
+        public double curTime;
+        public double allTime;
         public int ID = 0;
 
         public SolutionType Type{
@@ -24,11 +24,29 @@ namespace Part4
                 type = value;
             }
         }
+
+        public double Cost
+        {
+            get; set;
+        }
+
         public Request()
         {
-            this.type = (SolutionType)1;
-           // this.Type = Type;
-           // ID++;
+
+        }
+
+            public Request(SolutionType type, int ID, double allTime )
+        {
+            this.type = type;
+            this.ID = ID;
+            
+            this.allTime = allTime;
+            this.curTime = this.allTime;
+            // acceptance = true;
+            // cost = 0;
+            //       timeInQueue;
+            //     timeProcess;
+            // ID++;
         }
     }
 }

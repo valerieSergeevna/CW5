@@ -24,35 +24,61 @@ namespace Part2
             
         }
 
+        bool check = false;
+
         private void button1_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < Convert.ToInt32(textBox1.Text); i++)
-                dataGridView1.Columns.Add($"P{ColumnIndex}", $"P{ColumnIndex++}");
+            try
+            {
+                label4.Text = " ";
+                dataGridView1.AllowUserToAddRows = false;
+                for (int i = 0; i < Convert.ToInt32(textBox1.Text); i++)
+                    dataGridView1.Columns.Add($"P{ColumnIndex}", $"P{ColumnIndex++}");
 
-            for (int i = 0; i < Convert.ToInt32(textBox2.Text); i++)
-            { dataGridView1.Rows.Add(); dataGridView1.Rows[i].HeaderCell.Value = $"{i+1}"; RowIndex++; }
+                for (int i = 0; i < Convert.ToInt32(textBox2.Text); i++)
+                { dataGridView1.Rows.Add(); dataGridView1.Rows[i].HeaderCell.Value = $"{i + 1}"; RowIndex++; }
+                check = true;
+            }
+            catch (Exception ex)
+            {
+                label4.Text = "Введите параметры!";
+            }
 
            
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            int[,] MA = new int[RowIndex, ColumnIndex];
-            for (int i = 0; i < ColumnIndex; i++)
+            if (check)
             {
-                for (int j = 0; j < RowIndex; j++)
+                try
                 {
-                    MA[j, i] = Convert.ToInt32(dataGridView1.Rows[j].Cells[i].Value);
+                    label4.Text = " ";
+                    int[,] MA = new int[RowIndex, ColumnIndex];
+                    for (int i = 0; i < ColumnIndex; i++)
+                    {
+                        for (int j = 0; j < RowIndex; j++)
+                        {
+                            MA[j, i] = Convert.ToInt32(dataGridView1.Rows[j].Cells[i].Value);
+                        }
+                    }
+
+                    string[] str = textBox3.Text.Split(' ');
+                    int[] RA = new int[str.Length];
+                    for (int i = 0; i < str.Length; i++)
+                        RA[i] = Convert.ToInt32(str[i]);
+                    TPR table = new TPR(RowIndex, ColumnIndex, MA, RA);
+                    table.PriorityAlgorythm();
+                    printRank(table);
+                }
+                catch (Exception ex)
+                {
+                    
+                    label4.Text = "Неправильно заданные приоритеты";
                 }
             }
-
-            string[] str = textBox3.Text.Split(' ');
-            int[] RA = new int[str.Length];
-            for (int i = 0; i < str.Length; i++)
-                RA[i] = Convert.ToInt32(str[i]);
-            TPR table = new TPR(RowIndex,ColumnIndex, MA,RA);
-            table.PriorityAlgorythm();
-            printRank(table);
+            else { label4.Text = "Создайте таблицу!"; }
+          
            
         }
 

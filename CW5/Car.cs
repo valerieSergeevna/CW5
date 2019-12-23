@@ -8,17 +8,17 @@ namespace CW5
 {
     public class Car
     {
-        protected int cylilndersCount;
-        protected string model;
-        protected double power;
+        protected int cylilndersCount;//количество цилиндров
+        protected string model;//марка
+        protected double power;//мощность
 
-        public int CylilndersCount
+        public int CylilndersCount//свойство для количества цилиндров
         {
             get { return cylilndersCount; }
             private set { }
         }
 
-        public string Model
+        public string Model//свойство для марки
         {
             get { return model; }
             private set { }
@@ -28,7 +28,9 @@ namespace CW5
         {
             get { return power; }
             private set { }
-        }
+        }//свойство для мощности
+
+        //конструкторы с параметром и без
         public Car()
         {
             cylilndersCount = 0;
@@ -44,21 +46,4 @@ namespace CW5
         }
     }
 
-    public class Lorry : Car
-    {
-        protected double carryingCapacity;
-        public double CarryingCapacity
-        {
-            get { return carryingCapacity; }
-            private set { }
-        }
-
-       public void ChangeCarryingCapacity(double cap) { carryingCapacity = cap; }
-        public void ChangeModel(string model) { this.model = model; }
-        public Lorry(double carryingCapacity, int cylilndersCount, string model, double power) : base(cylilndersCount, model, power)
-        {
-            this.carryingCapacity = carryingCapacity;
-        }
-
-    }
 }

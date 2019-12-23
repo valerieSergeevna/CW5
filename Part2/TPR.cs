@@ -9,9 +9,9 @@ namespace Part2
 {
     class Element
     {
-        private int mark;
-        private int cur_rank;
-        private int prev_rank;
+        private int mark; //оценка
+        private int cur_rank;//текущий ранг
+        private int prev_rank;//ранг в предыдцщем столбце
         public Element(int mark)
         {
             this.mark = mark;
@@ -38,9 +38,9 @@ namespace Part2
         }
 
     }
-    class TPR
+    public class TPR
     {
-        private Element[,] table;
+        private Element[,] table;//таблица с оценками
         private int Rows, Columns;
 
 
@@ -48,13 +48,11 @@ namespace Part2
 
         public TPR(int rows, int colums, int[,] mark_table, int[] rankArray)
         {
-            //на вводе сделать массив приоритетов(от исходной матрицы), относительно которго забъем рабочую матрицу
-          /*  int[,] mark_table = new int[,] { { 4, 5, 4, 3 }, { 3, 3, 5, 4 }, { 4, 4, 3, 3 }, { 3, 4, 3, 5 }, { 4, 5, 3, 4 }, { 3, 3, 5, 5 } };
-            int[] rankArray = new int[] { 1, 2, 3, 4 };*/
+            
             this.Rows = rows;
             this.Columns = colums;
 
-            Element[,] array = new Element[rows, colums];
+            Element[,] array = new Element[rows, colums];//заполняем таблицу оценок 
 
             for (int i = 0; i < rankArray.Length; i++)
             {
@@ -86,22 +84,18 @@ namespace Part2
 
         public void PriorityAlgorythm()
         {
-            InitFirstColumn();
-
-
-
-            // 
+            InitFirstColumn();//задаем ранги первому столбцу
 
             for (int i = 1; i < Columns; i++)
             {
 
                 int current_rank = 0;
-                SetFirstRank(i);
+                SetFirstRank(i);//устанавливаем начальные ранги для элементов столбца
 
                 for (int r = 1; r <= Rows; r++)
                 {
 
-                    SetRank(i, r, ref current_rank);
+                    SetRank(i, r, ref current_rank);//пересчитывваем ранги
                 }
             }
 
@@ -122,9 +116,12 @@ namespace Part2
             for (int i = 0; i < Rows; i++)
             {
 
-                if (column != 0)
-                { table[i, column].Prev_rank = table[i, column - 1].Cur_rank; table[i, column].Cur_rank = table[i, column].Prev_rank; }
-                else { table[i, column].Prev_rank = 1; table[i, column].Cur_rank = 1; }
+                if (column != 0) //если колонка не первая, то для текущего элемента записываем параметр предыдцщего ранга,
+                    //как текущий ранг у элемента предыдущего столбца и его же присваеваем к параметру текцщий ранг у текущего элемента
+                { table[i, column].Prev_rank = table[i, column - 1].Cur_rank;
+                    table[i, column].Cur_rank = table[i, column].Prev_rank;
+                }
+                else { table[i, column].Prev_rank = 1; table[i, column].Cur_rank = 1; }//если это первая колонка, то все записываем как ранг 1
             }
         }
 
@@ -133,11 +130,12 @@ namespace Part2
 
             int min = 0;
             int count = 0;
-            int max = find_max(column, rnk, ref count);
+            int max = find_max(column, rnk, ref count);//находим максимальную оценку для данного ранга
             if (count > 1)
             {
-                DegAnotherRank(column, min, rnk, max);
-                compare_with_max_same_rank(max, column, rnk, ref min, count);
+                DegAnotherRank(column, min, rnk, max);//увеличиваем ранги у всех элеменов, у которых ранг больше rnk 
+                compare_with_max_same_rank(max, column, rnk, ref min, count);//сравниваем элементы с одинаковым рангом и
+                //увеличиваем ранги у тех, у кого оценка меньше , чем max
             }
 
 
@@ -179,6 +177,16 @@ namespace Part2
 
         }
 
+        public int[] GetLastColumn()
+        {
+
+            int[] rankArray = new int[Rows];
+             for (int i = 0; i< Rows; i++)
+            {
+                rankArray[i] = table[i, Columns-1].Cur_rank;
+            }
+            return rankArray;
+        }
 
         public void CopyValue(ref int[,] ValueArray)
         {

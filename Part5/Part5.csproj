@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{75760FB9-A559-4FDC-AB07-402424BC5E51}</ProjectGuid>
+    <ProjectGuid>{0B441F43-F7AB-48D5-B878-0948A0CCCC2E}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>CW5</RootNamespace>
-    <AssemblyName>CW5</AssemblyName>
+    <RootNamespace>Part5</RootNamespace>
+    <AssemblyName>Part5</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -46,16 +46,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Car.cs" />
+    <Compile Include="BaseExpression.cs" />
+    <Compile Include="Constraint.cs" />
+    <Compile Include="Expression.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Lorry.cs" />
+    <Compile Include="Monomial.cs" />
+    <Compile Include="Number.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SimplexMethod.cs" />
+    <Compile Include="Variable.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
